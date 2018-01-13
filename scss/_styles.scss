@@ -1,0 +1,83 @@
+/*colors and fonts*/
+$logo_color: 	#585a5e /**dark grey**/, 	#babdc4 /**light grey**/, #50eda6 /**green-blue**/, #3cc186/**dark green-blue**/, white, #eaeae5 /*beige*/;
+$main_font: Raleway, Arial, sans-serif;
+$font-size: 10px, 12px, 14px, 16px, 35px, 40px, 25px, 20px;
+
+/*width, height*/
+$max-width: 350px;
+$width-px: 25px, 70px, 350px, 140px;
+$width-viewport: 35vw, 70vw, 90vw, 100vw, 110vw, 50vw;
+$width-percentage: 100%, 80%, 50%, 65%, 35%, 70%;
+$height-px: 25px, 35px, 70px;
+$height-viewport: 80vh, 100vh, 15vh, 50vh;
+$height-percentage: 55%, 100%;
+
+/*flexbox*/
+@mixin flexbox() {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+}
+
+/*RWD - mediaqueries*/
+$break-small: 374px; // iphone 6 portrait 375px
+$break-medium: 757px; // ipad 758-1024px
+$break-large: 1023px; // desktops and laptops
+
+@mixin breakpoint($media) {
+  @if $media == small-mobile {
+    @media only screen and (max-width: $break-small){
+      @content;}
+  }
+  @else if $media == mobiles-tablets {
+    @media only screen and (min-width: $break-small+1) and (max-width: $break-medium){
+      @content; }
+  }
+  @else if $media == medium-screens{
+    @media only screen and (min-width: $break-medium+1) and (max-width: $break-large){
+      @content;  }
+  }
+  @else if $media == wide-screens {
+    @media only screen and (min-width: $break-large+1){
+      @content; }
+  }
+}
+/*css reset*/
+* {
+  border: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0 auto;
+  padding: 0;
+  vertical-align: baseline;
+}
+
+*, *:before, *:after {
+  -webkit-box-sizing: inherit;
+  -moz-box-sizing: inherit;
+  box-sizing: inherit;
+  }
+
+html, body {
+  font-family: nth($main_font,1);
+  @include breakpoint (small-mobile){
+    font-size: nth($font-size,1);
+    width:100vw;
+    color: nth($logo_color,1);
+  }
+  @include breakpoint (mobiles-tablets){
+    font-size: nth($font-size,2);
+    width:100vw;
+  }
+  @include breakpoint (medium-screens){
+    font-size: nth($font-size,3);
+    width:100vw;
+  }
+  @include breakpoint (wide-screens){
+    font-size: nth($font-size,4);
+    width:100vw;
+  }
+}
