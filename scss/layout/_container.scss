@@ -1,7 +1,39 @@
 img{
-  width: 175px;
+  width: 92px;
   max-height: 300px
 }
+.movie{
+  position: relative;
+  height: auto;
+  .movie_table{
+    width: 100%;
+    height: auto;
+  @include flexbox;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content:space-between;
+  align-items:center;
+  align-content: center;
+  li{
+    width: 30%;
+    height: auto;
+    list-style: none;
+  }
+  }
+  .movie_description{
+   position: fixed;
+   color: black;
+   width: 100vw;
+   height: auto;
+   background-color: white;
+   opacity: 0.8;
+   bottom: 0;
+   left: 0;
+   right: 0;
+  }
+}
+
+
 
 body{
   background-color: nth($logo_color,6);
@@ -11,14 +43,14 @@ body{
   align-items: center;
   #app{
   background-color: nth($logo_color,5);
-  //height: nth($height-viewport,1);
+  height: auto; //nth($height-viewport,1);
   color: nth($logo_color,1);
   @include breakpoint (small-mobile) {
     width: nth($width-viewport,3);
     max-width: nth($max-width,1);
   }
   @include breakpoint (mobiles-tablets) {
-    width: nth($width-viewport,2);
+    width: nth($width-viewport,3);
     max-width: nth($max-width,1);
   }
   @include breakpoint (medium-screens) {
@@ -34,11 +66,12 @@ body{
   -moz-box-shadow: 0 0 5px 1px rgba(214,214,214,0.34);
   box-shadow: 0 0 5px 1px rgba(214,214,214,0.34);
   .container{
-    width: nth($width-percentage,1);
-    height: 100vh;
+    width: nth($width-percentage,2);
+    height: auto;
     @include flexbox;
     flex-direction: column;
     position: relative;
+    padding: 20px;
     }
   }
 }
