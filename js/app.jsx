@@ -1,35 +1,9 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
+import List from './list.jsx';
+import Search from './search.jsx';
 
 document.addEventListener('DOMContentLoaded', function(){
-    class Search extends Component {
-      constructor(props){
-        super(props);
-        this.state = {
-        };
-      }
-      render(){
-        return(
-          <div>
-            <input value={this.props.value} placeholder=" search for your movie " type="text" onChange={this.props.newMovie} onKeyPress={this.props.handleKeyPress}></input>
-          </div>
-        );
-      }
-    }
-    class List extends Component {
-      constructor(props){
-        super(props);
-        this.state = {
-        };
-      }
-      render(){
-        return(
-          <ul>
-            {this.props.createObjectList()}
-          </ul>
-        );
-      }
-    }
 
     class App extends Component {
       constructor(props){
@@ -61,26 +35,6 @@ document.addEventListener('DOMContentLoaded', function(){
         		console.log('Błąd!',	err);
         });
       }
-      createObjectList = () =>{
-        let objectList = this.state.objectList;
-        let liList = objectList.map((element,index)=>{
-          let releaseYear = element.release_date.slice(0,4);
-          let imgUrl=`http://image.tmdb.org/t/p/w185${element.poster_path}`;
-          return (
-            <li key={index}>
-              <img src={imgUrl} alt={element.title}/>
-              <div className="list_title">
-                <strong>{element.title}</strong>({releaseYear})</div>
-              <div className="list_rating">
-                  <strong>{element.vote_average}</strong>
-                  <p>{element.vote_count} votes</p>
-                  <p>{element.popularity} popularity</p>
-                </div>
-            </li>
-          );
-        });
-        return liList;
-      }
       render(){
         return(
 					<div className={"container"}>
@@ -90,8 +44,9 @@ document.addEventListener('DOMContentLoaded', function(){
             handleKeyPress={this.handleKeyPress}
             />
           <List
-            createObjectList={this.createObjectList
-            }/>
+            objectList = {this.state.objectList}
+            />
+
 					</div>
         );
       }
