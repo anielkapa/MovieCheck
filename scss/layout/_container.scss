@@ -1,24 +1,102 @@
-img{
-  width: 92px;
-  max-height: 300px
+body{
+  background-color: nth($logo_color,6);
+  height: nth($height-viewport,2);
+  @include flexbox;
+  justify-content: center;
+  align-items: stretch;
+  #app{
+  height: auto; //nth($height-viewport,1);
+  color: nth($logo_color,1);
+  width: 90%;
+  // @include breakpoint (small-mobile) {
+  //   width: nth($width-viewport,3);
+  //   max-width: nth($max-width,1);
+  // }
+  // @include breakpoint (mobiles-tablets) {
+  //   width: nth($width-viewport,3);
+  //   max-width: nth($max-width,1);
+  // }
+  // @include breakpoint (medium-screens) {
+  //   width: nth($width-px,3);
+  // }
+  // @include breakpoint (wide-screens) {
+  //   width: nth($width-px,3);
+  // }
+  @include flexbox;
+  flex-direction: column;
+  justify-content: center;
+  .container{
+    width: 90%;
+    height: auto;
+    @include flexbox;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    padding: 20px;
+    .search{
+      @include flexbox;
+      flex-direction: row;
+      justify-content: space-between;
+      align-content: center;
+      align-items: center;
+        input{
+          width: 50vw;
+          height: 10vh;
+          text-align: center;
+          -webkit-box-shadow: 0 0 5px 1px rgba(214,214,214,0.34);
+          -moz-box-shadow: 0 0 5px 1px rgba(214,214,214,0.34);
+          box-shadow: 0 0 5px 1px rgba(214,214,214,0.34);
+          }
+        i{
+          font-size: 7vh;
+          text-align: center;
+          padding-left: 5px ;
+        }
+      }
+    }
+  }
 }
 .movie{
   position: relative;
-  height: auto;
+  height: 80vh;
+  width:inherit;
+  @include flexbox;
+  flex-direction: row;
+  align-items: flex-start;
+  .movie_sortbutton{
+    height: 10vh;
+    width: 5vw;
+    min-width:35px;
+    text-align: center;
+    background-color: white;
+    position: fixed;
+    top:5.5%;
+    right: 0;
+  }
   .movie_table{
     width: 100%;
     height: auto;
-  @include flexbox;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content:space-between;
-  align-items:center;
-  align-content: center;
-  li{
-    width: 30%;
-    height: auto;
-    list-style: none;
-  }
+    margin: 20px 0 20px 0;
+    @include flexbox;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    li{
+      width: 20%;
+      max-width: 160px;
+      min-width: 120px;
+      min-height: 260px;
+      padding: 4px 2px 4px 2px;
+      box-sizing: border-box;
+      background-color: white;
+      text-align: center;
+      list-style: none;
+      margin: 2px;
+      img{
+        width: 92px;
+        height: 130px
+      }
+    }
   }
   .movie_description{
    position: fixed;
@@ -31,47 +109,7 @@ img{
    left: 0;
    right: 0;
   }
-}
-
-
-
-body{
-  background-color: nth($logo_color,6);
-  height: nth($height-viewport,2);
-  @include flexbox;
-  justify-content: center;
-  align-items: center;
-  #app{
-  background-color: nth($logo_color,5);
-  height: auto; //nth($height-viewport,1);
-  color: nth($logo_color,1);
-  @include breakpoint (small-mobile) {
-    width: nth($width-viewport,3);
-    max-width: nth($max-width,1);
-  }
-  @include breakpoint (mobiles-tablets) {
-    width: nth($width-viewport,3);
-    max-width: nth($max-width,1);
-  }
-  @include breakpoint (medium-screens) {
-    width: nth($width-px,3);
-  }
-  @include breakpoint (wide-screens) {
-    width: nth($width-px,3);
-  }
-  @include flexbox;
-  flex-direction: column;
-  justify-content: center;
-  -webkit-box-shadow: 0 0 5px 1px rgba(214,214,214,0.34);
-  -moz-box-shadow: 0 0 5px 1px rgba(214,214,214,0.34);
-  box-shadow: 0 0 5px 1px rgba(214,214,214,0.34);
-  .container{
-    width: nth($width-percentage,2);
-    height: auto;
-    @include flexbox;
-    flex-direction: column;
-    position: relative;
-    padding: 20px;
-    }
+  i{
+    padding: 3px;
   }
 }
