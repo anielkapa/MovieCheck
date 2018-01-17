@@ -18858,8 +18858,7 @@ var List = function (_Component) {
       fetch('https://api.themoviedb.org/3/movie/' + movieId + '?api_key=4de20b7ff5731c28e2c09cb1c26aefb4&language=en-US').then(function (resp) {
         if (resp.ok) return resp.json();else throw new Error('Błąd	sieci!');
       }).then(function (result) {
-        console.log('Filmy', result);
-        _this.setState({ movieIdDetails: result });
+        _this.setState({ movieIdDetails: result, display: "flex" });
       }).catch(function (err) {
         console.log('Błąd!', err);
       });
@@ -18869,14 +18868,15 @@ var List = function (_Component) {
       var objectList = _this.state.objectList;
       var liList = objectList.map(function (element, index) {
         var releaseYear = element.release_date.slice(0, 4);
-        var imgUrl = 'http://image.tmdb.org/t/p/w92' + element.poster_path;
         var popularity = element.popularity.toFixed(2);
+        var imgUrl = 'http://image.tmdb.org/t/p/w92' + element.poster_path;
+        var image = element.poster_path === null ? _react2.default.createElement('i', { className: 'fa fa-film' }) : _react2.default.createElement('img', { src: imgUrl, alt: element.title });
         return _react2.default.createElement(
           'li',
           { key: index, onClick: function onClick(e) {
               return _this.handleClick(index);
             } },
-          _react2.default.createElement('img', { src: imgUrl, alt: element.title }),
+          image,
           _react2.default.createElement(
             'div',
             { className: 'list_title' },
@@ -18896,7 +18896,7 @@ var List = function (_Component) {
               'strong',
               null,
               element.vote_average,
-              _react2.default.createElement('i', { className: 'fa fa-star', ariaHidden: 'true' })
+              _react2.default.createElement('i', { className: 'fa fa-star' })
             ),
             _react2.default.createElement(
               'p',
@@ -18924,9 +18924,18 @@ var List = function (_Component) {
       _this.setState({ objectList: sortedList });
     };
 
+    _this.handleClose = function (event) {
+      if (_this.state.display === "flex") {
+        _this.setState({ display: "none" });
+      } else {
+        _this.setState({ display: "flex" });
+      }
+    };
+
     _this.state = {
       objectList: [],
-      movieIdDetails: {}
+      movieIdDetails: {},
+      display: "none"
     };
     return _this;
   }
@@ -18948,7 +18957,7 @@ var List = function (_Component) {
           _react2.default.createElement(
             'button',
             { className: 'movie_sortbutton', onClick: this.handleSorting },
-            _react2.default.createElement('i', { className: 'fa fa-sort-alpha-asc', ariaHidden: 'true' })
+            _react2.default.createElement('i', { className: 'fa fa-sort-alpha-asc' })
           ),
           _react2.default.createElement(
             'ul',
@@ -18956,7 +18965,9 @@ var List = function (_Component) {
             this.createObjectList()
           ),
           _react2.default.createElement(_details2.default, {
-            movieIdDetails: this.state.movieIdDetails })
+            movieIdDetails: this.state.movieIdDetails,
+            display: this.state.display,
+            handleClose: this.handleClose })
         );
       }
     }
@@ -19041,15 +19052,20 @@ var Details = function (_Component) {
       var link = 'http://www.imdb.com/title/' + _this.state.imdb + '/?ref_=inth_ov_tt';
       return _react2.default.createElement(
         'div',
-        { className: 'movie_description' },
+        { className: 'movie_description', style: { display: '' + _this.state.display } },
+        _react2.default.createElement(
+          'button',
+          { onClick: _this.props.handleClose },
+          'X'
+        ),
         _react2.default.createElement(
           'span',
-          null,
+          { className: 'movie_description_genre' },
           _this.getGenres()
         ),
         _react2.default.createElement(
           'span',
-          null,
+          { className: 'movie_description_imdb' },
           _react2.default.createElement(
             'a',
             { href: link },
@@ -19058,7 +19074,7 @@ var Details = function (_Component) {
         ),
         _react2.default.createElement(
           'span',
-          null,
+          { className: 'movie_description_storyline' },
           _react2.default.createElement(
             'strong',
             null,
@@ -19072,7 +19088,7 @@ var Details = function (_Component) {
         ),
         _react2.default.createElement(
           'span',
-          null,
+          { className: 'movie_description_country' },
           _react2.default.createElement(
             'strong',
             null,
@@ -19082,7 +19098,7 @@ var Details = function (_Component) {
         ),
         _react2.default.createElement(
           'span',
-          null,
+          { className: 'movie_description_companies' },
           _react2.default.createElement(
             'strong',
             null,
@@ -19099,7 +19115,8 @@ var Details = function (_Component) {
       imdb: '',
       overview: '',
       productionCountries: [],
-      productionCompanies: []
+      productionCompanies: [],
+      display: ""
     };
     return _this;
   }
@@ -19112,7 +19129,8 @@ var Details = function (_Component) {
         imdb: nextProps.movieIdDetails.imdb_id,
         overview: nextProps.movieIdDetails.overview,
         productionCountries: nextProps.movieIdDetails.production_countries,
-        productionCompanies: nextProps.movieIdDetails.production_companies
+        productionCompanies: nextProps.movieIdDetails.production_companies,
+        display: nextProps.display
       });
     }
   }, {
@@ -19183,7 +19201,7 @@ var Search = function (_Component) {
         'div',
         { className: 'search' },
         _react2.default.createElement('input', { value: this.props.value, placeholder: ' search for your movie ', type: 'text', onChange: this.props.newMovie, onKeyPress: this.props.handleKeyPress }),
-        _react2.default.createElement('i', { className: 'fa fa-search', ariaHidden: 'true' })
+        _react2.default.createElement('i', { className: 'fa fa-search' })
       );
     }
   }]);
