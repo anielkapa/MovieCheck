@@ -7,7 +7,8 @@ class List extends Component {
     super(props);
     this.state = {
       objectList:[],
-      movieIdDetails: {}
+      movieIdDetails: {},
+      display: "none"
     };
   }
   componentWillReceiveProps(nextProps){
@@ -21,8 +22,7 @@ class List extends Component {
       else
     throw	new	Error('Błąd	sieci!');
     }).then(	result	=>	{
-        console.log('Filmy',	result);
-        this.setState({movieIdDetails: result});
+        this.setState({movieIdDetails: result, display: "flex"});
     }).catch(	err	=>	{
         console.log('Błąd!',	err);
     });
@@ -30,17 +30,18 @@ class List extends Component {
   createObjectList = () =>{
     let objectList = this.state.objectList;
     let liList = objectList.map((element,index)=>{
-      let releaseYear = element.release_date.slice(0,4);
-      let imgUrl=`http://image.tmdb.org/t/p/w92${element.poster_path}`;
-      let popularity= element.popularity.toFixed(2);
+    let releaseYear = element.release_date.slice(0,4);
+    let popularity= element.popularity.toFixed(2);
+    let imgUrl = `http://image.tmdb.org/t/p/w92${element.poster_path}`;
+    let image = element.poster_path === null? <i className="fa fa-film"></i> : <img src={imgUrl} alt={element.title}/>;
       return (
         <li key={index} onClick={e=>this.handleClick(index)}>
-          <img src={imgUrl} alt={element.title}/>
+          {image}
           <div className="list_title">
             <strong>{element.title}</strong> ({releaseYear})</div>
           <div className="list_rating">
               <strong>{element.vote_average}
-              <i className="fa fa-star" ariaHidden="true"></i>
+              <i className="fa fa-star"></i>
               </strong>
               <p>{element.vote_count} votes</p>
               <p>{popularity} popularity</p>
@@ -55,6 +56,13 @@ class List extends Component {
     sortedList.sort((a, b) => a.title.localeCompare(b.title));
     this.setState({objectList: sortedList});
   }
+  handleClose = (event) =>{
+    if(this.state.display === "flex"){
+      this.setState({display: "none"})
+    }else{
+      this.setState({display: "flex"})
+    }
+  }
   render(){
     if (this.state.objectList.length === 0){
       return null;
@@ -62,13 +70,15 @@ class List extends Component {
       return(
         <div className="movie">
           <button className="movie_sortbutton" onClick={this.handleSorting}>
-            <i className="fa fa-sort-alpha-asc" ariaHidden="true"></i>
+            <i className="fa fa-sort-alpha-asc"></i>
           </button>
           <ul className="movie_table">
             {this.createObjectList()}
           </ul>
           <Details
-            movieIdDetails={this.state.movieIdDetails}/>
+            movieIdDetails={this.state.movieIdDetails}
+            display={this.state.display}
+            handleClose={this.handleClose}/>
         </div>
       );
     }

@@ -83,7 +83,6 @@ body{
     justify-content: center;
     li{
       width: 20%;
-      max-width: 160px;
       min-width: 120px;
       min-height: 260px;
       padding: 4px 2px 4px 2px;
@@ -96,6 +95,14 @@ body{
         width: 92px;
         height: 130px
       }
+      .fa-film {
+        font-size: 130px;
+        padding: none;
+        margin-bottom: 3px;
+      }
+      .fa-star{
+        padding: 3px;
+      }
     }
   }
   .movie_description{
@@ -103,13 +110,33 @@ body{
    color: black;
    width: 100vw;
    height: auto;
+   flex-direction: row;
+   flex-wrap: wrap;
+   align-items: stretch;
+   text-align: left;
    background-color: white;
    opacity: 0.8;
    bottom: 0;
    left: 0;
    right: 0;
-  }
-  i{
-    padding: 3px;
+
+   button{
+     width: 15px;
+     height: auto;
+     margin-left: 0;
+   }
+   span{
+     height: auto;
+   }
+    .movie_description_companies {
+     width: 13vw;
+     padding-right: 9px;
+   }
+   .movie_description_storyline{
+     width: 52vw;
+   }
+   .movie_description_country,.movie_description_genre, .movie_description_imdb{
+     width: 8vw;
+   }
   }
 }

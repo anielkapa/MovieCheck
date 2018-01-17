@@ -11,7 +11,7 @@ class Search extends Component {
     return(
       <div className="search">
         <input value={this.props.value} placeholder=" search for your movie " type="text" onChange={this.props.newMovie} onKeyPress={this.props.handleKeyPress}></input>
-        <i className="fa fa-search" ariaHidden="true"></i>
+        <i className="fa fa-search"></i>
     </div>
     );
   }
